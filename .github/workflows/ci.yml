@@ -14,12 +14,14 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3  # Uppdaterad till version 3
+      uses: actions/checkout@v3
+      with:
+        node-version: '20'  # Specificera Node.js 20 för checkout
 
     - name: Set up Node.js
-      uses: actions/setup-node@v3  # Uppdaterad till version 3
+      uses: actions/setup-node@v3
       with:
-        node-version: '20'  # Använd Node.js 20
+        node-version: '20'
 
     - name: Install dependencies
       run: npm install

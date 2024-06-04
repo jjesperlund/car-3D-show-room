@@ -28,7 +28,7 @@ jobs:
       run: npm run build
 
     - name: Build Docker image
-      run: docker build -t my-react-app .
+      run: docker build -t jjesperlund/my-react-app .
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v2

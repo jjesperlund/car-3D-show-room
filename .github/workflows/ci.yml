@@ -28,4 +28,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Deploy with Docker Compose
-        run: docker-compose up -d
+        run: docker-compose build --push
+
+      #- name: Push Docker image to Docker Hub
+      #  run: docker push jjesperlund/my-react-app:latest

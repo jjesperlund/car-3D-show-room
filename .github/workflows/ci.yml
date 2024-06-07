@@ -10,7 +10,6 @@ on:
 
 jobs:
   deploy-docker-image:
-    needs: build
     name: Deploy Docker image
     runs-on: ubuntu-latest
     steps:

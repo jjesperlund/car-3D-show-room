@@ -4,5 +4,6 @@ services:
   my-react-app:
     build:
       context: .
+    image: jjesperlund/my-react-app:latest
     ports:
       - "5000:5000"

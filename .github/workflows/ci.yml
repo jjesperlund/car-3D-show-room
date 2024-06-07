@@ -26,19 +26,22 @@ jobs:
 
       - name: Build the app
         run: npm run build
-    
+
   create-docker-image:
     needs: build
     name: Create Docker image
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code # Checkout files to access Dockerfile
+        uses: actions/checkout@v3
+
       - name: Build Docker image
         run: docker build -t jjesperlund/my-react-app .
 
   upload-docker-image:
     needs: create-docker-image
-    name: Upload Docker image   
-    runs-on: ubuntu-latest 
+    name: Upload Docker image
+    runs-on: ubuntu-latest
     steps:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2

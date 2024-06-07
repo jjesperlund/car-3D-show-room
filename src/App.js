@@ -1,47 +1,44 @@
-import './App.css'
+import './App.css';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
+import { useEffect } from 'react';
 
-import { useRef, useState } from 'react'
-import * as THREE from 'three'
-import { Canvas, useFrame } from '@react-three/fiber'
-
-import { CameraControls } from '@react-three/drei'
-
-function Box(props) {
-  // This reference gives us direct access to the THREE.Mesh object
-  const ref = useRef()
-  // Hold state for hovered and clicked events
-  const [hovered, hover] = useState(false)
-  const [clicked, click] = useState(false)
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => (ref.current.rotation.x += delta))
-  // Return the view, these are regular Threejs elements expressed in JSX
+function Plane(props) {
   return (
-    <mesh
-      {...props}
-      ref={ref}
-      scale={clicked ? 1.5 : 1}
-      onClick={(event) => click(!clicked)}
-      onPointerOver={(event) => (event.stopPropagation())}
-      onPointerOut={(event) => hover(false)}>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
+    <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} {...props}>
+      <planeGeometry args={[1000, 1000]} />
+      <meshStandardMaterial color="#808080" />
     </mesh>
-  )
+  );
+}
+
+function Cube(props) {
+  return (
+    <mesh castShadow {...props}>
+      <boxGeometry />
+      <meshLambertMaterial color="orange" />
+    </mesh>
+  );
 }
 
 export default function App() {
   return (
-    <Canvas>
-      <ambientLight intensity={Math.PI / 2} />
-      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
-      <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-      <Box position={[-1.2, 0, 0]} />
-      <Box position={[1.2, 0, 0]} />
-      <mesh position={[0, 0, 0]} rotation={new THREE.Euler(-Math.PI / 2, 0, 0)}>
-        <planeGeometry args={[5, 100]} />
-        <meshStandardMaterial color={[1, 0.45, 0.33]} />
-      </mesh>
-      <CameraControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 2} />
+    <Canvas dpr={[1, 2]} shadows camera={{ position: [-5, 5, 5], fov: 50 }}>
+      <ambientLight intensity={0.3} />
+      <directionalLight
+        angle={0.25}
+        penumbra={0.5}
+        position={[10, 10, 10]}
+        castShadow
+        intensity={1.5}
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
+      />
+      <Plane position={[0, 0, 0]} />
+      <Cube position={[0, 1, 0]} />
+      <Cube position={[1, 2, 0]} />
+      <Cube position={[-1, 3, 0]} />
+      <OrbitControls />
     </Canvas>
-  )
+  );
 }

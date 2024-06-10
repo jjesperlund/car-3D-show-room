@@ -1,6 +1,13 @@
 import './App.css';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
+import { useState } from 'react';
+
+async function getRandomColor() {
+  const response = await fetch('http://localhost:8080/api/getcolor');
+  const data = await response.json();
+  return data.color;
+}
 
 function Plane(props) {
   return (
@@ -12,10 +19,18 @@ function Plane(props) {
 }
 
 function Cube(props) {
+  const [color, setColor] = useState('orange');
   return (
-    <mesh castShadow {...props}>
+    <mesh
+      castShadow
+      {...props}
+      onClick={async () => {
+        const newColor = await getRandomColor();
+        setColor(newColor);
+      }}
+    >
       <boxGeometry />
-      <meshLambertMaterial color="orange" />
+      <meshLambertMaterial color={color} />
     </mesh>
   );
 }

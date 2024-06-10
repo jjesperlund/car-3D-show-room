@@ -6,4 +6,4 @@ services:
       context: .
     image: jjesperlund/my-react-app:latest
     ports:
-      - "5000:5000"
+      - "3000:3000"

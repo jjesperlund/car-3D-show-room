@@ -19,7 +19,7 @@ function Plane(props) {
 }
 
 function Cube(props) {
-  const [color, setColor] = useState('orange');
+  const [color, setColor] = useState('pink');
   return (
     <mesh
       castShadow

@@ -20,7 +20,7 @@ function ConcreteRoom(props) {
       <meshStandardMaterial
         map={colorMap}
         normalMap={normalMap}
-        normalScale={2}
+        normalScale={4}
         receiveShadow
         side={THREE.DoubleSide}
       />

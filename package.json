@@ -20,7 +20,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy-to-github-pages": "npm run build && mv build doc && echo 'Doc folder updated with latest build'"
+    // Run deploy-to-github-pages, move build to /docs folder, change paths /static... to ./static...
+    "deploy-to-github-pages": "npm run build"
   },
   "eslintConfig": {
     "extends": [

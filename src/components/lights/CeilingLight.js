@@ -18,7 +18,6 @@ const CeilingLight = (props) => {
         height={height}
         color={color}
         intensity={2}
-        castShadow
       />
       <spotLight
         position={[position[0] - 6, position[1], position[2]]}

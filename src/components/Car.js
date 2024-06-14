@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useEnvironment, useGLTF } from '@react-three/drei';
 
@@ -6,16 +6,44 @@ function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
-function Car({ color, mattness }) {
+function Car({ color, mattness, rimColor, windowTint }) {
   const envMap = useEnvironment({ preset: 'warehouse' });
   const { nodes, materials } = useGLTF('/models/porsche.glb');
   const carSurfaceRef = useRef();
+  const carRimsRef = useRef([]);
+  const carWindowsRef = useRef([]);
 
+  // Initialize reference arrays
+  useEffect(() => {
+    carRimsRef.current = [
+      new React.createRef(),
+      new React.createRef(),
+      new React.createRef(),
+      new React.createRef(),
+      new React.createRef(),
+    ];
+
+    carWindowsRef.current = [new React.createRef(), new React.createRef()];
+  }, []);
+
+  // Update car details on input change
   useFrame(() => {
     if (carSurfaceRef.current) {
       carSurfaceRef.current.material.color.set(color);
       carSurfaceRef.current.material.reflectivity = clamp(1 - mattness - 0.3, 0, 1);
     }
+
+    carRimsRef.current.forEach((ref) => {
+      if (ref.current) {
+        ref.current.material.color.set(rimColor);
+      }
+    });
+
+    carWindowsRef.current.forEach((ref) => {
+      if (ref.current) {
+        ref.current.material.opacity = windowTint;
+      }
+    });
   });
 
   return (
@@ -29,20 +57,23 @@ function Car({ color, mattness }) {
               geometry={nodes.Object_4.geometry}
               material={materials['930_plastics']}
             />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.Object_5.geometry}
-              material={materials['930_stickers']}
-            />
           </group>
           <group position={[-1.161, 0.557, -1.209]} rotation={[0.479, 0, 0]}>
             <mesh
+              ref={carRimsRef.current[0]}
               castShadow
               receiveShadow
               geometry={nodes.Object_8.geometry}
-              material={materials['930_rim']}
-            />
+              //material={materials['930_rim']}
+            >
+              <meshStandardMaterial
+                attach="material"
+                color="#303030"
+                envMap={envMap}
+                metalness={0.8}
+                roughness={0.3}
+              />
+            </mesh>
             <mesh
               castShadow
               receiveShadow
@@ -52,11 +83,20 @@ function Car({ color, mattness }) {
           </group>
           <group position={[-1.017, 0.557, 1.973]} rotation={[0.503, -0.286, 0.154]}>
             <mesh
+              ref={carRimsRef.current[1]}
               castShadow
               receiveShadow
               geometry={nodes.Object_11.geometry}
-              material={materials['930_rim']}
-            />
+              //material={materials['930_rim']}
+            >
+              <meshStandardMaterial
+                attach="material"
+                color="#303030"
+                envMap={envMap}
+                metalness={0.8}
+                roughness={0.3}
+              />
+            </mesh>
             <mesh
               castShadow
               receiveShadow
@@ -113,12 +153,6 @@ function Car({ color, mattness }) {
               geometry={nodes.Object_63.geometry}
               material={materials['930_plastics']}
             />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.Object_64.geometry}
-              material={materials['930_stickers']}
-            />
           </group>
           <group position={[-0.253, 1.326, 1.325]} rotation={[0.581, 0.323, -0.008]} scale={0.014}>
             <mesh
@@ -147,23 +181,26 @@ function Car({ color, mattness }) {
             <mesh
               castShadow
               receiveShadow
-              geometry={nodes.Object_79.geometry}
-              material={materials['930_stickers']}
-            />
-            <mesh
-              castShadow
-              receiveShadow
               geometry={nodes.Object_80.geometry}
               material={materials.plate}
             />
           </group>
           <group position={[1.017, 0.557, 1.973]} rotation={[0.521, -0.283, 0.159]}>
             <mesh
+              ref={carRimsRef.current[2]}
               castShadow
               receiveShadow
               geometry={nodes.Object_88.geometry}
-              material={materials['930_rim']}
-            />
+              //material={materials['930_rim']}
+            >
+              <meshStandardMaterial
+                attach="material"
+                color="#303030"
+                envMap={envMap}
+                metalness={0.8}
+                roughness={0.3}
+              />
+            </mesh>
             <mesh
               castShadow
               receiveShadow
@@ -177,11 +214,20 @@ function Car({ color, mattness }) {
             scale={[0.885, 0.936, 0.936]}
           >
             <mesh
+              ref={carRimsRef.current[3]}
               castShadow
               receiveShadow
               geometry={nodes.Object_117.geometry}
-              material={materials['930_rim']}
-            />
+              //material={materials['930_rim']}
+            >
+              <meshStandardMaterial
+                attach="material"
+                color="#303030"
+                envMap={envMap}
+                metalness={0.8}
+                roughness={0.3}
+              />
+            </mesh>
             <mesh
               castShadow
               receiveShadow
@@ -189,24 +235,6 @@ function Car({ color, mattness }) {
               material={materials['930_tire']}
             />
           </group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Object_14.geometry}
-            material={materials['930_stickers']}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Object_16.geometry}
-            material={materials['930_stickers']}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Object_18.geometry}
-            material={materials['930_stickers']}
-          />
           <mesh
             castShadow
             receiveShadow
@@ -230,11 +258,19 @@ function Car({ color, mattness }) {
             material={materials['930_lights']}
           />
           <mesh
-            castShadow
-            receiveShadow
+            ref={carWindowsRef.current[0]}
             geometry={nodes.Object_26.geometry}
-            material={materials.glass}
-          />
+            //material={materials.glass}
+          >
+            <meshStandardMaterial
+              attach="material"
+              color="#000000"
+              metalness={1}
+              roughness={0.01}
+              transparent={true}
+              opacity={0.8}
+            />
+          </mesh>
           <mesh
             castShadow
             receiveShadow
@@ -259,8 +295,8 @@ function Car({ color, mattness }) {
               attach="material"
               color="#00fff0"
               envMap={envMap}
-              reflectivity={0.2} // För att göra materialet glansigt
-              shininess={0.01} // Justera glansigheten
+              reflectivity={0.2}
+              shininess={0.01}
             />
           </mesh>
           <mesh
@@ -273,11 +309,19 @@ function Car({ color, mattness }) {
             scale={0.014}
           />
           <mesh
-            castShadow
-            receiveShadow
+            ref={carWindowsRef.current[1]}
             geometry={nodes.Object_36.geometry}
-            material={materials.glass}
-          />
+            //material={materials.glass}
+          >
+            <meshStandardMaterial
+              attach="material"
+              color="#000000"
+              metalness={1}
+              roughness={0.01}
+              transparent={true}
+              opacity={0.8}
+            />
+          </mesh>
           <mesh
             castShadow
             receiveShadow
@@ -303,11 +347,19 @@ function Car({ color, mattness }) {
             scale={0.243}
           />
           <mesh
-            castShadow
-            receiveShadow
             geometry={nodes.Object_47.geometry}
-            material={materials.glass}
-          />
+            //material={materials.glass}
+          >
+            <meshStandardMaterial
+              attach="material"
+              color="#000000"
+              metalness={1}
+              roughness={0.01}
+              transparent={true}
+              opacity={0.1}
+              envMap={envMap}
+            />
+          </mesh>
           <mesh
             castShadow
             receiveShadow
@@ -411,12 +463,6 @@ function Car({ color, mattness }) {
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.Object_95.geometry}
-            material={materials['930_lights_refraction']}
-          />
-          <mesh
-            castShadow
-            receiveShadow
             geometry={nodes.Object_97.geometry}
             material={materials['930_lights']}
           />
@@ -478,20 +524,22 @@ function Car({ color, mattness }) {
             scale={0.933}
           />
           <mesh
+            ref={carRimsRef.current[4]}
             castShadow
             receiveShadow
             geometry={nodes.Object_120.geometry}
-            material={materials['930_rim']}
+            //material={materials['930_rim']}
             position={[1.017, 0.557, 1.973]}
             rotation={[0.521, -0.283, 0.159]}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Object_122.geometry}
-            material={materials['930_wunderbaum']}
-            position={[-0.002, 1.581, 0.667]}
-          />
+          >
+            <meshStandardMaterial
+              attach="material"
+              color="#303030"
+              envMap={envMap}
+              metalness={0.8}
+              roughness={0.3}
+            />
+          </mesh>
           <mesh
             castShadow
             receiveShadow
@@ -532,18 +580,6 @@ function Car({ color, mattness }) {
             geometry={nodes.Object_134.geometry}
             material={materials['930_lights']}
             position={[1.799, 0.145, 3.197]}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Object_136.geometry}
-            material={materials['930_stickers']}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Object_138.geometry}
-            material={materials['930_stickers']}
           />
         </group>
       </group>

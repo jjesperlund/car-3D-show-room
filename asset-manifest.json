@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/car-3D-show-room/static/css/main.e3e1d533.css",
-    "main.js": "/car-3D-show-room/static/js/main.b47eab1e.js",
+    "main.js": "/car-3D-show-room/static/js/main.e206efc8.js",
     "static/js/453.f50ced99.chunk.js": "/car-3D-show-room/static/js/453.f50ced99.chunk.js",
     "index.html": "/car-3D-show-room/index.html",
     "main.e3e1d533.css.map": "/car-3D-show-room/static/css/main.e3e1d533.css.map",
-    "main.b47eab1e.js.map": "/car-3D-show-room/static/js/main.b47eab1e.js.map",
+    "main.e206efc8.js.map": "/car-3D-show-room/static/js/main.e206efc8.js.map",
     "453.f50ced99.chunk.js.map": "/car-3D-show-room/static/js/453.f50ced99.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e3e1d533.css",
-    "static/js/main.b47eab1e.js"
+    "static/js/main.e206efc8.js"
   ]
 }

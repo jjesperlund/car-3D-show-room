@@ -4,8 +4,8 @@ import * as THREE from 'three';
 
 function ConcreteRoom(props) {
   const [colorMap, normalMap] = useLoader(TextureLoader, [
-    './textures/concrete1/concrete_wall_008_diff_4k.jpg',
-    './textures/concrete1/concrete_wall_008_nor_gl_4k.jpg',
+    '/textures/concrete1/concrete_wall_008_diff_4k.jpg',
+    '/textures/concrete1/concrete_wall_008_nor_gl_4k.jpg',
   ]);
 
   // Ställ in texturens wrap- och repeat-egenskaper

@@ -19,7 +19,7 @@ RUN npm run build
 RUN npm install -g serve
 
 # Set the command to start the server with SPA fallback
-CMD ["serve", "-s", "build", "-l", "3000"]
+CMD ["serve", "-s", "build"]
 
 # Expose the port the app runs on
 EXPOSE 3000

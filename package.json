@@ -1,7 +1,6 @@
 {
   "name": "car-3D-show-room",
   "version": "1.0",
-  "homepage": "https://jjesperlund.github.io/car-3D-show-room",
   "private": true,
   "dependencies": {
     "@react-three/drei": "^9.106.0",

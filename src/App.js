@@ -10,7 +10,7 @@ export default function App() {
   return (
     <div>
       {showScene ? (
-        <div class="canvas-container">
+        <div className="canvas-container">
           <Scene />
         </div>
       ) : (

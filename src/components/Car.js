@@ -8,7 +8,7 @@ function clamp(value, min, max) {
 
 function Car({ color, mattness, rimColor, windowTint }) {
   const envMap = useEnvironment({ preset: 'warehouse' });
-  const { nodes, materials } = useGLTF('/models/porsche.glb');
+  const { nodes, materials } = useGLTF('./models/porsche.glb');
   const carSurfaceRef = useRef();
   const carRimsRef = useRef([]);
   const carWindowsRef = useRef([]);
@@ -587,6 +587,6 @@ function Car({ color, mattness, rimColor, windowTint }) {
   );
 }
 
-useGLTF.preload('/models/porsche.glb');
+useGLTF.preload('./models/porsche.glb');
 
 export default Car;

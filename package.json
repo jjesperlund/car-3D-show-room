@@ -1,6 +1,7 @@
 {
   "name": "car-3D-show-room",
   "version": "1.0",
+  "homepage": "https://jjesperlund.github.io/car-3D-show-room",
   "private": true,
   "dependencies": {
     "@react-three/drei": "^9.106.0",
@@ -20,8 +21,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    // Run deploy-to-github-pages, move build to /docs folder, change paths /static... to ./static...
-    "deploy-to-github-pages": "npm run build"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -40,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
   }
 }
